@@ -25,10 +25,10 @@ provider "aws" {
 }
 resource "aws_instance" "web" {
   count="${var.count}"
-  ami = "ami-0c55b159cbfafe1f0"
+  ami   = "${var.bigchaindb_ami}"
   instance_type = "t2.medium"
   key_name = "centaur"
-  vpc_security_group_ids = ["sg-0705bb5e1dc09d924"]
+  vpc_security_group_ids  = ["${aws_security_group.bigchaindb_server_sg.id}"]
   tags { Name = "${format("bigchain-tester-%01d",count.index+1)}" }
   associate_public_ip_address = "true"
 
